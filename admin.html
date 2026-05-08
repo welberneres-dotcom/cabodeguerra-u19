@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CABO DE GUERRA - U19</title>
+    <title>ADMIN - CABO DE GUERRA U19</title>
     <link rel="shortcut icon" href="img/fira_logo.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -12,7 +12,7 @@
 <div class="container">
     <div class="header-container">
         <img src="img/fira_logo.png" alt="Fira Brasil" class="header-logo">
-        <h1>COMPETIÇÃO DO CABO DE GUERRA - CATEGORIA U19</h1>
+        <h1>PAINEL DE CONTROLE - CATEGORIA U19</h1>
         <img src="img/robotec_logo.png" alt="Robotec" class="header-logo">
     </div>
 
@@ -20,15 +20,28 @@
         <div class="box">
             <h3>Lançar Ponto (Fase de Grupos)</h3>
             <select id="selectEquipe">
-                <optgroup label="Grupo A"><option>VIVERTEC</option><option>MASERATI</option><option>ROBO COC</option><option>MARVELTEC U-19</option><option>TECFLOR</option></optgroup>
-                <optgroup label="Grupo B"><option>FLASHLIGHT</option><option>ROBOHERO</option><option>ROBOTEC-PED</option><option>ARTHEMIS</option><option>FÚRIA</option><option>ENGREBOT</option></optgroup>
+                <optgroup label="Grupo A">
+                    <option>VIVERTEC</option>
+                    <option>MASERATI</option>
+                    <option>ROBO COC</option>
+                    <option>MARVELTEC U-19</option>
+                    <option>TECFLOR</option>
+                </optgroup>
+                <optgroup label="Grupo B">
+                    <option>FLASHLIGHT</option>
+                    <option>ROBOHERO</option>
+                    <option>ROBOTEC-PED</option>
+                    <option>ARTHEMIS</option>
+                    <option>FÚRIA</option>
+                    <option>ENGREBOT</option>
+                </optgroup>
             </select>
             <select id="selectResultado">
                 <option value="V">Vitória (+3)</option>
                 <option value="E">Empate (+1)</option>
                 <option value="D">Derrota (0)</option>
             </select>
-            <button class="btn-add" id="btnRegistrar">Registrar</button>
+            <button class="btn-add" id="btnRegistrar">Registrar Resultado</button>
         </div>
         <div class="box">
             <h3>Histórico / Correção</h3>
@@ -39,15 +52,35 @@
     <div class="grid-top">
         <div>
             <h3>Grupo A</h3>
-            <table id="tabelaA"><thead><tr><th>Pos</th><th>Equipe</th><th>P</th><th>V</th></tr></thead><tbody></tbody></table>
+            <table id="tabelaA">
+                <thead>
+                    <tr>
+                        <th class="col-pos">Pos</th>
+                        <th class="col-equipe">Equipe</th>
+                        <th class="col-stats">P</th>
+                        <th class="col-stats">V</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
         <div>
             <h3>Grupo B</h3>
-            <table id="tabelaB"><thead><tr><th>Pos</th><th>Equipe</th><th>P</th><th>V</th></tr></thead><tbody></tbody></table>
+            <table id="tabelaB">
+                <thead>
+                    <tr>
+                        <th class="col-pos">Pos</th>
+                        <th class="col-equipe">Equipe</th>
+                        <th class="col-stats">P</th>
+                        <th class="col-stats">V</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
 
-    <button id="btnFinalizar" style="background: #1a73e8; color: white; font-weight: bold; margin-bottom: 20px; cursor: pointer; border: none; border-radius: 5px; height: 45px;">
+    <button id="btnFinalizar" class="btn-finalizar">
         FINALIZAR FASE DE GRUPOS E GERAR CHAVES
     </button>
 
@@ -98,29 +131,18 @@
                     <button class="equipe-btn" data-fase="f" id="final_2">Finalista 2</button>
                 </div>
 
-                <div id="podio" style="display: none;">
-                    <span style="font-size: 20px;">🏆</span>
-                    <h3 style="margin: 5px 0; color: #b8860b;">CAMPEÃO U19</h3>
-                    <div id="campeao_nome" style="font-weight: bold; font-size: 18px;">---</div>
+                <div id="podio">
+                    <span style="font-size: 24px;">🏆</span>
+                    <h3 style="margin: 5px 0; color: #b8860b; border: none;">CAMPEÃO U19</h3>
+                    <div id="campeao_nome" style="font-weight: bold; font-size: 20px;">---</div>
                 </div>
             </div>
         </div>
     </div>
 
     <button id="btnReset" class="btn-reset">ZERAR TODO O PLACAR</button>
-
-    <div class="footer-logos">
-        <span style="text-align: center; display: block; font-weight: bold;">Realização e Apoio</span>
-        <div class="logo-grid">
-            <img src="img/robotec_logo.png" alt="Robotec">
-            <img src="img/fira_logo.png" alt="Fira Brasil">
-            <img src="img/coc_logo.png" alt="COC">
-            <img src="img/robocity_logo.png" alt="Robo City">
-        </div>
-    </div>
 </div>
 
 <script type="module" src="js/script.js"></script>
 </body>
 </html>
-
