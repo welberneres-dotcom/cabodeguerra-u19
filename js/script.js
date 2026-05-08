@@ -15,6 +15,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const dbRef = ref(db, 'campeonatoU19');
 
+// --- DADOS INICIAIS ---
 const equipesOriginal = [
     { nome: "VIVERTEC", grupo: "A", pts: 0, v: 0, e: 0, d: 0 },
     { nome: "MASERATI", grupo: "A", pts: 0, v: 0, e: 0, d: 0 },
@@ -29,6 +30,7 @@ const equipesOriginal = [
     { nome: "ENGREBOT", grupo: "B", pts: 0, v: 0, e: 0, d: 0 }
 ];
 
+// Inicializa o estadoGlobal com os dados originais para não ficar vazio
 let estadoGlobal = {
     equipes: JSON.parse(JSON.stringify(equipesOriginal)),
     log: [],
@@ -36,13 +38,16 @@ let estadoGlobal = {
     vencedoresMataMata: {}
 };
 
+// --- SINCRONIZAÇÃO ---
 onValue(dbRef, (snapshot) => {
     const data = snapshot.val();
-    if (data) {
+    if (data && data.equipes) {
         estadoGlobal = data;
         render();
     } else {
+        // Se o banco estiver vazio, ele salva os dados iniciais e renderiza
         salvar();
+        render(); 
     }
 });
 
