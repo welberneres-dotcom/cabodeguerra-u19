@@ -83,3 +83,30 @@ td:nth-child(2) { width: 45%; text-align: left; padding-left: 10px; font-weight:
 
 /* Desabilita cliques no Mata-Mata para quem não é Admin */
 body:not([data-page="admin"]) .equipe-btn { pointer-events: none; cursor: default; }
+
+        .footer-logos {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        .logo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .logo-grid img {
+            height: 50px; /* Ajuste a altura conforme necessário */
+            width: auto;
+            filter: grayscale(20%); /* Deixa as cores levemente suaves */
+            transition: transform 0.3s ease;
+        }
+
+        .logo-grid img:hover {
+            transform: scale(1.1); /* Efeito de aumento ao passar o mouse */
+            filter: grayscale(0%);
+        }
