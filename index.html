@@ -3,118 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLACAR - CABO DE GUERRA U19</title>
-    <link rel="shortcut icon" href="img/fira_logo.png">
+    <title>PLACAR AO VIVO - U19</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <div class="container">
     <div class="header-container">
         <img src="img/fira_logo.png" alt="Fira Brasil" class="header-logo">
-        <h1>COMPETIÇÃO DO CABO DE GUERRA - CATEGORIA U19</h1>
+        <h1>CABO DE GUERRA - PLACAR AO VIVO (U19)</h1>
         <img src="img/robotec_logo.png" alt="Robotec" class="header-logo">
     </div>
 
-    <div class="grid-top">
-        <div>
+    <div class="grid-3">
+        <!-- Centralizando os dois grupos A e B -->
+        <div style="grid-column: span 1.5;">
             <h3>Grupo A</h3>
             <table id="tabelaA">
-                <thead>
-                    <tr>
-                        <th class="col-pos">Pos</th>
-                        <th class="col-equipe">Equipe</th>
-                        <th class="col-stats">P</th>
-                        <th class="col-stats">V</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Pos</th><th>Equipe</th><th>P</th><th>V</th><th>E</th><th>D</th></tr></thead>
                 <tbody></tbody>
             </table>
         </div>
-        <div>
+        <div style="grid-column: span 1.5;">
             <h3>Grupo B</h3>
             <table id="tabelaB">
-                <thead>
-                    <tr>
-                        <th class="col-pos">Pos</th>
-                        <th class="col-equipe">Equipe</th>
-                        <th class="col-stats">P</th>
-                        <th class="col-stats">V</th>
-                    </tr>
-                </thead>
+                <thead><tr><th>Pos</th><th>Equipe</th><th>P</th><th>V</th><th>E</th><th>D</th></tr></thead>
                 <tbody></tbody>
             </table>
         </div>
     </div>
 
     <div class="fase-bracket">
-        <h2>Fase Eliminatória</h2>
-        <div class="grid-top" style="grid-template-columns: 1fr 1fr;">
+        <h2 style="text-align:center; color:#e53935;">MATA-MATA (U19)</h2>
+        <div class="grid-3">
             <div>
                 <div class="match-header">QUARTAS DE FINAL</div>
                 <div class="match-container">
-                    <div class="equipe-view" id="q1_equipe1">...</div>
+                    <button class="equipe-btn" id="q1_1">...</button>
                     <span class="vs-label">VS</span>
-                    <div class="equipe-view" id="q1_equipe2">...</div>
+                    <button class="equipe-btn" id="q1_2">...</button>
                 </div>
                 <div class="match-container">
-                    <div class="equipe-view" id="q2_equipe1">...</div>
+                    <button class="equipe-btn" id="q2_1">...</button>
                     <span class="vs-label">VS</span>
-                    <div class="equipe-view" id="q2_equipe2">...</div>
+                    <button class="equipe-btn" id="q2_2">...</button>
                 </div>
                 <div class="match-container">
-                    <div class="equipe-view" id="q3_equipe1">...</div>
+                    <button class="equipe-btn" id="q3_1">...</button>
                     <span class="vs-label">VS</span>
-                    <div class="equipe-view" id="q3_equipe2">...</div>
+                    <button class="equipe-btn" id="q3_2">...</button>
                 </div>
                 <div class="match-container">
-                    <div class="equipe-view" id="q4_equipe1">...</div>
+                    <button class="equipe-btn" id="q4_1">...</button>
                     <span class="vs-label">VS</span>
-                    <div class="equipe-view" id="q4_equipe2">...</div>
+                    <button class="equipe-btn" id="q4_2">...</button>
                 </div>
             </div>
-
             <div>
                 <div class="match-header">SEMI-FINAL</div>
-                <div class="match-container">
-                    <div class="equipe-view" id="semi1_1">...</div>
+                <div class="match-container" style="margin-top:40px;">
+                    <button class="equipe-btn" id="s1_1">Aguardando...</button>
                     <span class="vs-label">VS</span>
-                    <div class="equipe-view" id="semi1_2">...</div>
+                    <button class="equipe-btn" id="s1_2">Aguardando...</button>
                 </div>
-                <div class="match-container">
-                    <div class="equipe-view" id="semi2_1">...</div>
+                <div class="match-container" style="margin-top:80px;">
+                    <button class="equipe-btn" id="s2_1">Aguardando...</button>
                     <span class="vs-label">VS</span>
-                    <div class="equipe-view" id="semi2_2">...</div>
-                </div>
-
-                <div class="match-header" style="background:#ffd700; color:#000">GRANDE FINAL</div>
-                <div class="match-container">
-                    <div class="equipe-view" id="final_1">...</div>
-                    <span class="vs-label">VS</span>
-                    <div class="equipe-view" id="final_2">...</div>
-                </div>
-
-                <div id="podio">
-                    <span style="font-size: 24px;">🏆</span>
-                    <h3 style="margin: 5px 0; color: #b8860b; border: none;">CAMPEÃO U19</h3>
-                    <div id="campeao_nome" style="font-weight: bold; font-size: 20px;">---</div>
+                    <button class="equipe-btn" id="s2_2">Aguardando...</button>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="footer-logos">
-        <span style="text-align: center; display: block; font-weight: bold; margin-bottom: 10px;">Realização e Apoio</span>
-        <div class="logo-grid">
-            <img src="img/robotec_logo.png" alt="Robotec">
-            <img src="img/fira_logo.png" alt="Fira Brasil">
-            <img src="img/coc_logo.png" alt="COC">
-            <img src="img/robocity_logo.png" alt="Robo City">
+            <div>
+                <div class="match-header" style="background:#ffd700; color:#000">GRANDE FINAL</div>
+                <div class="match-container" style="margin-top:100px;">
+                    <button class="equipe-btn" id="f1">Finalista</button>
+                    <span class="vs-label">VS</span>
+                    <button class="equipe-btn" id="f2">Finalista</button>
+                </div>
+                <div id="podio" style="display:none; text-align:center; margin-top:20px;">
+                    <span style="font-size: 40px;">🏆</span>
+                    <h3 id="campeao_nome" style="color: #d4af37; font-size: 24px; margin-top: 10px;">---</h3>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- O type="module" é obrigatório! -->
-<script type="module" src="js/script.js"></script>
+<!-- Scripts de compatibilidade do Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
