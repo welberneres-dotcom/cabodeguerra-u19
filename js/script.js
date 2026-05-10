@@ -1,6 +1,4 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
+/* 1. CONFIGURAÇÃO FIREBASE */
 const firebaseConfig = {
   apiKey: "AIzaSyBvn_W7lu81DYof9OHiWd3H_7CbGANHHc8",
   authDomain: "cabo-u19.firebaseapp.com",
@@ -12,11 +10,13 @@ const firebaseConfig = {
   measurementId: "G-L78YNWK1SD"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// Inicializa o Firebase no modo compatível (global)
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const db = firebase.database(); // AGORA O DB ESTÁ DEFINIDO
 
-// --- EQUIPES ATUALIZADAS PARA U19 ---
+/* 2. DADOS INICIAIS */
 const equipesOriginal = [
     { nome: "VIVERTEC", grupo: "A", pts: 0, v: 0, e: 0, d: 0 },
     { nome: "MASERATI", grupo: "A", pts: 0, v: 0, e: 0, d: 0 },
@@ -31,15 +31,74 @@ const equipesOriginal = [
     { nome: "ENGREBOT", grupo: "B", pts: 0, v: 0, e: 0, d: 0 }
 ];
 
-let dados = { equipes: JSON.parse(JSON.stringify(equipesOriginal)), log: [], faseGruposFinalizada: false, vencedoresMataMata: {} };
+let dados = { 
+    equipes: JSON.parse(JSON.stringify(equipesOriginal)), 
+    log: [], 
+    faseGruposFinalizada: false, 
+    vencedoresMataMata: {} 
+};
 
-// Alterado para campeonato_u19
+/* 3. SINCRONIZAÇÃO COM O BANCO */
 db.ref('campeonato_u19').on('value', (snap) => {
     const d = snap.val();
-    if (d && d.equipes) { dados = d; render(); }
-    else { db.ref('campeonato_u19').set(dados); }
+    if (d && d.equipes) { 
+        dados = d; 
+        render(); 
+    } else { 
+        // Se o banco estiver vazio, ele cria com os times do U19
+        db.ref('campeonato_u19').set(dados); 
+    }
 });
 
+/* 4. FUNÇÕES DE RENDERIZAÇÃO */
+function render() {
+    try {
+        const trs = (g) => [...dados.equipes].filter(x => x.grupo === g)
+            .sort((a,b) => b.pts - a.pts || b.v - a.v)
+            .map((e,i) => `<tr><td>${i+1}º</td><td>${e.nome}</td><td>${e.pts}</td><td>${e.v}</td><td>${e.e||0}</td><td>${e.d||0}</td></tr>`).join('');
+        
+        ["A","B"].forEach(g => { 
+            const t = document.querySelector(`#tabela${g} tbody`); 
+            if(t) t.innerHTML = trs(g); 
+        });
+        
+        // Renderizar Histórico
+        const hist = document.getElementById('historico');
+        if (hist) {
+            hist.innerHTML = (dados.log || []).map(l => `
+                <div class="history-item" style="display:flex; justify-content:space-between; align-items:center; background:#f9f9f9; padding:5px 10px; margin-bottom:5px; border-radius:4px; border-left:4px solid #e53935; font-size: 14px;">
+                    <div style="display: flex; flex-direction: column;"><strong>${l.n}</strong><span style="font-size: 12px; color: #666;">${l.r==='V'?'Vitória':l.r==='E'?'Empate':'Derrota'}</span></div>
+                    <button onclick="excluirResultado(${l.id})" class="btn-undo-mini">X</button>
+                </div>`).join('');
+        }
+
+        // Renderizar Mata-Mata
+        const v = dados.vencedoresMataMata || {};
+        const ids = ['q1_1','q1_2','q2_1','q2_2','q3_1','q3_2','q4_1','q4_2','s1_1','s1_2','s2_1','s2_2','f1','f2'];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                if (!v[id]) {
+                    if(id.startsWith('q')) el.innerText = "..."; 
+                    else if(id.startsWith('s')) el.innerText = "Aguardando..."; 
+                    else el.innerText = "Finalista";
+                    el.classList.remove('venceu');
+                } else {
+                    el.innerText = v[id];
+                    if (v[id+"_win"]) el.classList.add('venceu'); else el.classList.remove('venceu');
+                }
+            }
+        });
+
+        const podio = document.getElementById('podio');
+        if (podio) { 
+            podio.style.display = v.campeao ? 'block' : 'none'; 
+            document.getElementById('campeao_nome').innerText = v.campeao || "---"; 
+        }
+    } catch(err) { console.error("Erro ao renderizar:", err); }
+}
+
+/* 5. AÇÕES (Registrar, Vencer, Reset) */
 function registrar() {
     const n = document.getElementById('selectEquipe').value;
     const r = document.getElementById('selectResultado').value;
@@ -70,10 +129,8 @@ function excluirResultado(id) {
 }
 
 function vencer(partida, el) {
-    const path = window.location.pathname.toLowerCase();
-    if (!path.includes('admin')) return;
     const nome = el.innerText;
-    if (!nome || nome === "..." || nome === "Aguardando..." || nome.includes("Finalista")) return;
+    if (!nome || nome === "..." || nome === "Aguardando...") return;
     if (!dados.vencedoresMataMata) dados.vencedoresMataMata = {};
     const chaves = { 'q1':'s1_1', 'q4':'s1_2', 'q2':'s2_1', 'q3':'s2_2', 's1':'f1', 's2':'f2', 'f':'campeao' };
     if (chaves[partida]) {
@@ -91,8 +148,6 @@ function liberarMataMata() {
     if (confirm("Gerar Quartas (4A x 4B)?")) {
         const obter = (g) => [...dados.equipes].filter(e => e.grupo === g).sort((a,b) => b.pts - a.pts || b.v - a.v);
         const rA = obter("A"), rB = obter("B");
-        
-        // Lógica: 1ºA x 4ºB | 2ºA x 3ºB | 1ºB x 4ºA | 2ºB x 3ºA
         dados.vencedoresMataMata = {
             'q1_1': rA[0]?.nome || "...", 'q1_2': rB[3]?.nome || "...",
             'q2_1': rA[1]?.nome || "...", 'q2_2': rB[2]?.nome || "...",
@@ -102,43 +157,6 @@ function liberarMataMata() {
         dados.faseGruposFinalizada = true;
         db.ref('campeonato_u19').set(dados);
     }
-}
-
-function render() {
-    try {
-        const trs = (g) => [...dados.equipes].filter(x => x.grupo === g)
-            .sort((a,b) => b.pts - a.pts || b.v - a.v)
-            .map((e,i) => `<tr><td>${i+1}º</td><td>${e.nome}</td><td>${e.pts}</td><td>${e.v}</td><td>${e.e||0}</td><td>${e.d||0}</td></tr>`).join('');
-        
-        // Apenas Grupos A e B para U19
-        ["A","B"].forEach(g => { const t = document.querySelector(`#tabela${g} tbody`); if(t) t.innerHTML = trs(g); });
-        
-        const hist = document.getElementById('historico');
-        if (hist) {
-            hist.innerHTML = (dados.log || []).map(l => `
-                <div class="history-item" style="display:flex; justify-content:space-between; align-items:center; background:#f9f9f9; padding:5px 10px; margin-bottom:5px; border-radius:4px; border-left:4px solid #e53935; font-size: 14px;">
-                    <div style="display: flex; flex-direction: column;"><strong>${l.n}</strong><span style="font-size: 12px; color: #666;">${l.r==='V'?'Vitória':l.r==='E'?'Empate':'Derrota'}</span></div>
-                    <button onclick="excluirResultado(${l.id})" class="btn-undo-mini">X</button>
-                </div>`).join('');
-        }
-        
-        const v = dados.vencedoresMataMata || {};
-        const ids = ['q1_1','q1_2','q2_1','q2_2','q3_1','q3_2','q4_1','q4_2','s1_1','s1_2','s2_1','s2_2','f1','f2'];
-        ids.forEach(id => {
-            const el = document.getElementById(id);
-            if (el) {
-                if (!v[id]) {
-                    if(id.startsWith('q')) el.innerText = "..."; else if(id.startsWith('s')) el.innerText = "Aguardando..."; else el.innerText = "Finalista";
-                    el.classList.remove('venceu');
-                } else {
-                    el.innerText = v[id];
-                    if (v[id+"_win"]) el.classList.add('venceu'); else el.classList.remove('venceu');
-                }
-            }
-        });
-        const podio = document.getElementById('podio');
-        if (podio) { podio.style.display = v.campeao ? 'block' : 'none'; document.getElementById('campeao_nome').innerText = v.campeao || "---"; }
-    } catch(err) { console.log("Erro ao renderizar:", err); }
 }
 
 window.confirmarReset = function() {
