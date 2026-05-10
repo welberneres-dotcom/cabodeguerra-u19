@@ -88,6 +88,8 @@ body:not([data-page="admin"]) .equipe-btn { pointer-events: none; cursor: defaul
             margin-top: 30px;
             padding-top: 20px;
             border-top: 2px solid #e2e8f0;
+            justify-content: center;
+            align-items: center;
         }
 
         .logo-grid {
@@ -103,6 +105,8 @@ body:not([data-page="admin"]) .equipe-btn { pointer-events: none; cursor: defaul
             height: 50px; /* Ajuste a altura conforme necessário */
             width: auto;
             filter: grayscale(20%); /* Deixa as cores levemente suaves */
+            justify-content: center;
+            align-items: center;
             transition: transform 0.3s ease;
         }
 
