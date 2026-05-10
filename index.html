@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLACAR AO VIVO - U19</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilo específico para a caixa de apoio ficar igual ao mata-mata */
+        .footer-logos {
+            border: 2px solid #e53935; /* Borda vermelha */
+            border-radius: 12px;       /* Bordas arredondadas */
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            margin-top: 20px;          /* Espaço próximo à caixa de cima */
+        }
+        .logo-grid {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .logo-grid img {
+            max-height: 50px;
+            width: auto;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -86,19 +108,20 @@
             </div>
         </div>
     </div>
-</div>
-        <div class="footer-logos">
-            <span class="section-title" style="text-align: center; display: block;font-size:larger;background: rgba(255, 255, 255, 0.96);color:#e53935">
-                <b>REALIZAÇÃO E APOIO</b>
-            </span>
-            <div class="logo-grid">
-                <img src="img/robotec_logo.png" alt="Robotec">
-                <img src="img/fira_logo.png" alt="Fira Brasil">
-                <img src="img/coc_logo.png" alt="COC">
-                <img src="img/robocity_logo.png" alt="Robo City">
-                <img src="img/outro_logo.png" alt="Apoio">
-            </div>
+
+    <div class="footer-logos">
+        <span class="section-title" style="text-align: center; display: block; font-size: larger; color:#e53935; margin-bottom: 10px;">
+            <b>REALIZAÇÃO E APOIO</b>
+        </span>
+        <div class="logo-grid">
+            <img src="img/robotec_logo.png" alt="Robotec">
+            <img src="img/fira_logo.png" alt="Fira Brasil">
+            <img src="img/coc_logo.png" alt="COC">
+            <img src="img/robocity_logo.png" alt="Robo City">
+            <img src="img/outro_logo.png" alt="Apoio">
         </div>
+    </div>
+</div>
 
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
