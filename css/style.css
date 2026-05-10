@@ -1,77 +1,85 @@
+/* 1. RESET E BASE */
 body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 10px;
     color: #333;
-    padding: 20px;
-    background-color: #0b111e;
-    background-image: url('../img/cabo_de_guerra.png');
+    background-color: #0b111e; 
+    background-image: url('../img/cabo_de_guerra.png'); 
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
 
+/* 2. CONTAINER RESPONSIVO */
 .container {
-    max-width: 1200px;
+    max-width: 1250px;
+    width: 95%;
     margin: auto;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px;
+    background: rgba(255, 255, 255, 0.96); 
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    box-sizing: border-box;
 }
 
-.header-container { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; gap: 15px; }
-.header-container h1 { flex: 1; margin: 0; font-size: 1.5rem; text-align: center; color: #333; font-weight: bold; }
-.header-logo { height: 70px; width: auto; object-fit: contain; }
+/* 3. HEADER */
+.header-container { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 10px; }
+.header-container h1 { flex: 1; margin: 0; font-size: 1.5rem; text-align: center; color: #e53935; text-transform: uppercase; letter-spacing: 1px; }
+.header-logo { height: 55px; width: auto; object-fit: contain; }
 
-.grid-top { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
-.box { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-
-/* TABELAS ESTILO U14 (image_19ee3b.png) */
-table { width: 100%; border-collapse: collapse; background: white; margin-bottom: 20px; }
-th, td { border: 1px solid #ddd; padding: 12px 8px; text-align: center; font-size: 14px; }
-
-th { background-color: #e74c3c !important; color: white !important; font-weight: bold; }
-
-.col-pos { width: 15%; }
-.col-equipe { width: 45%; text-align: left; padding-left: 15px !important; }
-.col-stats { width: 20%; }
-
-tbody tr:nth-child(even) { background-color: #f9f9f9; }
-h3 { color: #333; border-left: 5px solid #e74c3c; padding-left: 10px; margin-bottom: 15px; }
-
-/* BOTÕES E INPUTS */
-select, .btn-add { height: 45px; border-radius: 5px; border: 1px solid #ccc; width: 100%; margin-bottom: 10px; }
-.btn-add { background: #28a745; color: white; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
-.btn-add:hover { background: #218838; }
-
-.btn-finalizar { background: #1a73e8; color: white; width: 100%; font-weight: bold; border: none; border-radius: 5px; height: 50px; cursor: pointer; margin-bottom: 20px; }
-.btn-reset { background: #dc3545; color: white; width: 100%; border: none; font-weight: bold; height: 45px; cursor: pointer; border-radius: 5px; margin-top: 40px; }
-
-/* MATA-MATA */
-.fase-bracket { background: #fdfdfd; border: 2px solid #ddd; padding: 20px; border-radius: 10px; }
-.match-header { background: #333; color: white; padding: 8px; text-align: center; font-weight: bold; border-radius: 4px; margin-bottom: 10px; }
-.match-container { margin-bottom: 15px; padding: 10px; background: #fff; border: 1px solid #eee; border-radius: 6px; }
-
-.equipe-btn, .equipe-view {
-    display: block; width: 100%; padding: 10px; margin: 5px 0;
-    background: #fff; border: 1px solid #ccc; border-radius: 4px;
-    font-weight: bold; text-align: center; transition: 0.2s;
+/* 4. GRID RESPONSIVO */
+/* Ajustado para priorizar 2 colunas grandes nos grupos do U19 */
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-bottom: 30px; }
+@media (min-width: 900px) { 
+    .grid-3 .box[style*="grid-column: span 2"] { grid-column: span 2 !important; } 
 }
-.equipe-btn { cursor: pointer; }
-.equipe-btn:hover { background: #f0f0f0; border-color: #e74c3c; }
-.venceu { background: #28a745 !important; color: white !important; border-color: #1e7e34 !important; }
-.vs-label { display: block; text-align: center; font-size: 11px; color: #888; font-weight: bold; }
 
-/* PODIO */
-#podio { display: none; text-align: center; background: #fff9c4; padding: 20px; border: 3px solid #ffd700; border-radius: 10px; margin-top: 20px; animation: pulse 2s infinite; }
+.box { background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 8px; }
+
+/* 5. FORMULÁRIO */
+select, button, input { padding: 12px; border-radius: 6px; border: 1px solid #ccc; margin: 5px 0; width: 100%; box-sizing: border-box; font-size: 16px; }
+button.btn-add { background: #28a745; color: white; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+button.btn-add:hover { background: #218838; }
+.btn-reset { background: #dc3545; color: white; border: none; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+.btn-reset:hover { background: #c82333; }
+
+/* 6. HISTÓRICO */
+.history-list { max-height: 250px; overflow-y: auto; font-size: 13px; border: 1px solid #ddd; padding: 10px; background: #fff; border-radius: 6px; }
+.btn-undo-mini { background: #dc3545; color: white; border: none; width: 28px; height: 28px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
+
+/* 7. TABELAS (U19 - Foco em A e B) */
+table { width: 100%; border-collapse: collapse; background: white; margin-bottom: 20px; table-layout: fixed; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+th, td { border: 1px solid #dee2e6; padding: 10px 5px; text-align: center; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+th { background: #e53935; color: white; text-transform: uppercase; font-size: 11px; }
+td:nth-child(2) { width: 45%; text-align: left; padding-left: 10px; font-weight: 600; } /* Nome da equipe em destaque */
+
+/* 8. MATA-MATA */
+.fase-bracket { background: #fdfdfd; border: 2px solid #e53935; padding: 20px; border-radius: 10px; margin-top: 30px; }
+.match-header { background: #222; color: white; padding: 8px; text-align: center; font-weight: bold; font-size: 13px; margin-bottom: 15px; border-radius: 4px; border-bottom: 3px solid #e53935; }
+.equipe-btn { display: block; width: 100%; padding: 14px 8px; margin: 5px 0; background: #fff; border: 2px solid #ddd; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.2s; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.equipe-btn:hover { background: #fffde7; border-color: #fbc02d; transform: translateY(-1px); }
+.venceu { background: #28a745 !important; color: white !important; border-color: #1e7e34 !important; box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3); }
+.vs-label { font-size: 11px; color: #777; display: block; text-align: center; margin: 4px 0; font-weight: bold; font-style: italic; }
+.match-container { margin-bottom: 20px; padding: 10px; border-bottom: 1px dashed #eee; }
+
+/* 9. PÓDIO */
+#podio { display: none; margin-top: 25px; text-align: center; background: #fff9c4; padding: 20px; border: 4px solid #ffd700; border-radius: 12px; animation: pulse 2s infinite; }
+#podio h3 { margin: 10px 0 0 0; color: #856404; text-transform: uppercase; }
+
 @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.03);} 100% {transform: scale(1);} }
 
-/* HISTÓRICO */
-.history-list { max-height: 150px; overflow-y: auto; border: 1px solid #ddd; background: #f9f9f9; padding: 10px; }
-.history-item { display: flex; justify-content: space-between; align-items: center; padding: 5px; border-bottom: 1px solid #eee; font-size: 13px; }
-.btn-undo { background: #e74c3c; color: white; border: none; padding: 3px 8px; border-radius: 3px; cursor: pointer; }
+/* 10. MOBILE */
+@media (max-width: 600px) {
+    body { padding: 5px; }
+    .container { padding: 12px; width: 100%; border-radius: 0; }
+    .header-container { flex-direction: column; text-align: center; }
+    .header-container h1 { font-size: 1.1rem; margin: 10px 0; }
+    .header-logo { height: 40px; }
+    .fase-bracket .grid-3 { display: flex; flex-direction: column; }
+    th, td { font-size: 11px; padding: 8px 2px; }
+}
 
-/* FOOTER */
-.footer-logos { margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; }
-.logo-grid { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; }
-.logo-grid img { height: 45px; opacity: 0.8; }
+/* Desabilita cliques no Mata-Mata para quem não é Admin */
+body:not([data-page="admin"]) .equipe-btn { pointer-events: none; cursor: default; }
