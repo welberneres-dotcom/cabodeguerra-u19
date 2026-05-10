@@ -39,7 +39,7 @@
                 <option value="E">Empate (+1)</option>
                 <option value="D">Derrota (0)</option>
             </select>
-            <button class="btn-add" id="btnRegistrar">Registrar Resultado</button>
+            <button class="btn-add" id="btnRegistrar" onclick="registrar()">Registrar Resultado</button>
         </div>
         <div class="box">
             <h3>Histórico</h3>
@@ -48,24 +48,23 @@
     </div>
 
     <div class="grid-3">
-        <!-- Apenas Grupos A e B para U19 -->
         <div style="grid-column: span 1.5;">
             <h3>Grupo A</h3>
             <table id="tabelaA">
-                <thead><tr><th>Pos</th><th>Equipe</th><th>P</th><th>V</th></tr></thead>
+                <thead><tr><th>Pos</th><th>Equipe</th><th>P</th><th>V</th><th>E</th><th>D</th></tr></thead>
                 <tbody></tbody>
             </table>
         </div>
         <div style="grid-column: span 1.5;">
             <h3>Grupo B</h3>
             <table id="tabelaB">
-                <thead><tr><th>Pos</th><th>Equipe</th><th>P</th><th>V</th></tr></thead>
+                <thead><tr><th>Pos</th><th>Equipe</th><th>P</th><th>V</th><th>E</th><th>D</th></tr></thead>
                 <tbody></tbody>
             </table>
         </div>
     </div>
 
-    <button id="btnFinalizar" class="btn-finalizar" style="background:#e53935; color:white; padding:15px; width:100%; font-weight:bold; border:none; border-radius:8px; cursor:pointer; margin: 20px 0;">
+    <button id="btnFinalizar" onclick="liberarMataMata()" class="btn-finalizar" style="background:#e53935; color:white; padding:15px; width:100%; font-weight:bold; border:none; border-radius:8px; cursor:pointer; margin: 20px 0;">
         FINALIZAR GRUPOS E GERAR MATA-MATA (4A x 4B)
     </button>
 
@@ -75,55 +74,55 @@
             <div>
                 <div class="match-header">QUARTAS</div>
                 <div class="match-container">
-                    <button class="equipe-btn" data-fase="q1" id="q1_equipe1">...</button>
+                    <button class="equipe-btn" id="q1_1" onclick="vencer('q1', this)">...</button>
                     <span class="vs-label">VS</span>
-                    <button class="equipe-btn" data-fase="q1" id="q1_equipe2">...</button>
+                    <button class="equipe-btn" id="q1_2" onclick="vencer('q1', this)">...</button>
                 </div>
                 <div class="match-container">
-                    <button class="equipe-btn" data-fase="q2" id="q2_equipe1">...</button>
+                    <button class="equipe-btn" id="q2_1" onclick="vencer('q2', this)">...</button>
                     <span class="vs-label">VS</span>
-                    <button class="equipe-btn" data-fase="q2" id="q2_equipe2">...</button>
+                    <button class="equipe-btn" id="q2_2" onclick="vencer('q2', this)">...</button>
                 </div>
                 <div class="match-container">
-                    <button class="equipe-btn" data-fase="q3" id="q3_equipe1">...</button>
+                    <button class="equipe-btn" id="q3_1" onclick="vencer('q3', this)">...</button>
                     <span class="vs-label">VS</span>
-                    <button class="equipe-btn" data-fase="q3" id="q3_equipe2">...</button>
+                    <button class="equipe-btn" id="q3_2" onclick="vencer('q3', this)">...</button>
                 </div>
                 <div class="match-container">
-                    <button class="equipe-btn" data-fase="q4" id="q4_equipe1">...</button>
+                    <button class="equipe-btn" id="q4_1" onclick="vencer('q4', this)">...</button>
                     <span class="vs-label">VS</span>
-                    <button class="equipe-btn" data-fase="q4" id="q4_equipe2">...</button>
+                    <button class="equipe-btn" id="q4_2" onclick="vencer('q4', this)">...</button>
                 </div>
             </div>
 
             <div>
                 <div class="match-header">SEMI</div>
                 <div class="match-container" style="margin-top:40px;">
-                    <button class="equipe-btn" data-fase="s1" id="semi1_1">...</button>
+                    <button class="equipe-btn" id="s1_1" onclick="vencer('s1', this)">...</button>
                     <span class="vs-label">VS</span>
-                    <button class="equipe-btn" data-fase="s1" id="semi1_2">...</button>
+                    <button class="equipe-btn" id="s1_2" onclick="vencer('s1', this)">...</button>
                 </div>
                 <div class="match-container" style="margin-top:80px;">
-                    <button class="equipe-btn" data-fase="s2" id="semi2_1">...</button>
+                    <button class="equipe-btn" id="s2_1" onclick="vencer('s2', this)">...</button>
                     <span class="vs-label">VS</span>
-                    <button class="equipe-btn" data-fase="s2" id="semi2_2">...</button>
+                    <button class="equipe-btn" id="s2_2" onclick="vencer('s2', this)">...</button>
                 </div>
             </div>
 
             <div>
                 <div class="match-header" style="background:#ffd700; color:#000">FINAL</div>
                 <div class="match-container" style="margin-top:100px;">
-                    <button class="equipe-btn" data-fase="f" id="final_1">...</button>
+                    <button class="equipe-btn" id="f1" onclick="vencer('f', this)">...</button>
                     <span class="vs-label">VS</span>
-                    <button class="equipe-btn" data-fase="f" id="final_2">...</button>
+                    <button class="equipe-btn" id="f2" onclick="vencer('f', this)">...</button>
                 </div>
-                <div id="podio" style="display:none;">
+                <div id="podio" style="display:none; text-align:center;">
                     🏆 <h3 id="campeao_nome">---</h3>
                 </div>
             </div>
         </div>
     </div>
-    <button class="btn-reset" id="btnReset">ZERAR TUDO</button>
+    <button class="btn-reset" id="btnReset" onclick="confirmarReset()">ZERAR TUDO</button>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
